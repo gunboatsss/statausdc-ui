@@ -1,7 +1,7 @@
 import { useAccount, useConnect, useDisconnect, useReadContracts, useWriteContract } from 'wagmi'
 import { Address, erc20Abi, formatUnits, maxUint256, parseUnits, zeroAddress } from 'viem'
 import { stataUSDCAbi } from './abi/stataUSDC'
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { base } from 'viem/chains'
 function App() {
@@ -242,7 +242,7 @@ function App() {
         <h3>Tx hash:</h3>
         <div id='hashes'>
         {txHashArray.length > 0 && txHashArray.map((x) => 
-          (<span key={x}><a href={base.blockExplorers.default.url + '/tx/' + x}>{x}</a></span>)
+          (<Fragment key={x}><span><a href={base.blockExplorers.default.url + '/tx/' + x}>{x}</a></span><br /></Fragment>)
         )}
         </div>
       </div>
