@@ -52,6 +52,8 @@ function App() {
       }
     ]
   })
+
+  const correctChain = account.chainId === base.id
   async function approve(e: React.FormEvent<HTMLFormElement>, address: Address) {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
@@ -174,12 +176,13 @@ function App() {
         stataUSDC Balance: {formatUnits(approve_and_balance.data[4].result ?? 0n, 6)}
         <br />
       </div>}
-      {account.chainId !== base.id && (
+      {!correctChain && (
         <h2>Connect to base to write</h2>
       )}
       <form onSubmit={(e) => {
         approve(e, USDCContract.address)
-      }} {...{inert: account.chainId === base.id ? '' : undefined}}>
+      }}>
+        <fieldset disabled={!correctChain}>
         <label htmlFor="approve-usdc">Set USDC Approval</label>
         <input type='text' name='approve' id='approve-usdc'></input>
         <button type='submit'>Approve</button>
@@ -189,10 +192,12 @@ function App() {
         <button onClick={(e) => {
           revoke(e, USDCContract.address)
         }}>Revoke</button>
+        </fieldset>
       </form>
       <form onSubmit={(e) => {
         approve(e, aUSDCContract.address)
-      }} {...{inert: account.chainId === base.id ? '' : undefined}} >
+      }}>
+        <fieldset disabled={!correctChain}>
         <label htmlFor="approve-usdc">Set aUSDC Approval</label>
         <input type='text' name='approve' id='approve-usdc'></input>
         <button type='submit'>Approve</button>
@@ -202,21 +207,27 @@ function App() {
         <button onClick={(e) => {
           revoke(e, aUSDCContract.address)
         }}>Revoke</button>
+        </fieldset>
       </form>
-      <form onSubmit={deposit} {...{inert: account.chainId === base.id ? '' : undefined}}>
+      <form onSubmit={deposit}>
+      <fieldset disabled={!correctChain}>
+        
         <label htmlFor='deposit-usdc'>Deposit (a)USDC</label>
         <input type='text' name='amount'></input>
         <label htmlFor='depositToAave'>as aUSDC: </label>
         <input type='checkbox' name='asaUSDC' value='true'></input>
         <button type='submit'>Deposit</button>
+        </fieldset>
       </form>
 
-      <form onSubmit={withdraw} {...{inert: account.chainId === base.id ? '' : undefined}}>
+      <form onSubmit={withdraw}>
+        <fieldset disabled={!correctChain}>
         <label htmlFor='deposit-usdc'>Withdraw stataUSDC</label>
         <input type='text' name='amount'></input>
         <label htmlFor='depositToAave'>as aUSDC: </label>
         <input type='checkbox' name='asaUSDC' value='true'></input>
         <button type='submit'>Withdraw</button>
+        </fieldset>
       </form>
 
       {txError && (
