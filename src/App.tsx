@@ -174,9 +174,12 @@ function App() {
         stataUSDC Balance: {formatUnits(approve_and_balance.data[4].result ?? 0n, 6)}
         <br />
       </div>}
+      {account.chainId !== base.id && (
+        <h2>Connect to base to write</h2>
+      )}
       <form onSubmit={(e) => {
         approve(e, USDCContract.address)
-      }}>
+      }} {...{inert: account.chainId === base.id ? '' : undefined}}>
         <label htmlFor="approve-usdc">Set USDC Approval</label>
         <input type='text' name='approve' id='approve-usdc'></input>
         <button type='submit'>Approve</button>
@@ -189,7 +192,7 @@ function App() {
       </form>
       <form onSubmit={(e) => {
         approve(e, aUSDCContract.address)
-      }}>
+      }} {...{inert: account.chainId === base.id ? '' : undefined}} >
         <label htmlFor="approve-usdc">Set aUSDC Approval</label>
         <input type='text' name='approve' id='approve-usdc'></input>
         <button type='submit'>Approve</button>
@@ -200,7 +203,7 @@ function App() {
           revoke(e, aUSDCContract.address)
         }}>Revoke</button>
       </form>
-      <form onSubmit={deposit}>
+      <form onSubmit={deposit} {...{inert: account.chainId === base.id ? '' : undefined}}>
         <label htmlFor='deposit-usdc'>Deposit (a)USDC</label>
         <input type='text' name='amount'></input>
         <label htmlFor='depositToAave'>as aUSDC: </label>
@@ -208,7 +211,7 @@ function App() {
         <button type='submit'>Deposit</button>
       </form>
 
-      <form onSubmit={withdraw}>
+      <form onSubmit={withdraw} {...{inert: account.chainId === base.id ? '' : undefined}}>
         <label htmlFor='deposit-usdc'>Withdraw stataUSDC</label>
         <input type='text' name='amount'></input>
         <label htmlFor='depositToAave'>as aUSDC: </label>
