@@ -19,3 +19,13 @@
     color: #181818;
   }
 }
+
+input {
+  padding: 4px;
+  margin: 5px;
+}
+
+button {
+  padding: 5px;
+  margin: 5px;
+}

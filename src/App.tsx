@@ -95,7 +95,7 @@ function App() {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
     console.log(formData)
-    const depositToAave = formData.get('asaUSDC') as string === 'true' ? false : true
+    const depositToAave = formData.get('asaUSDC') as string !== 'true'
     const amount = formData.get('amount') as string
     console.log(depositToAave)
     console.log(account.address!)
@@ -111,7 +111,7 @@ function App() {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
     console.log(formData)
-    const depositToAave = formData.get('asaUSDC') as string === 'true' ? false : true
+    const depositToAave = formData.get('asaUSDC') as string !== 'true'
     const amount = formData.get('amount') as string
     console.log(depositToAave)
     console.log(account.address!)
